@@ -44,7 +44,7 @@ function renderTask(task) {
 
   const removeBtn = document.createElement("button");
   removeBtn.className = "deleteBtn";
-  removeBtn.textContent = "Удалить";
+  removeBtn.innerHTML = "×";
   removeBtn.addEventListener("click", () => {
     tasks = tasks.filter(t => t.id !== task.id);
     saveTasks();

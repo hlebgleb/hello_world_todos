@@ -110,9 +110,15 @@ body {
   color: #ff6b6b;
   font-weight: bold;
   cursor: pointer;
+  font-size: 24px;
+  padding: 0 8px;
+  line-height: 1;
+  transition: color 0.2s ease;
 }
 
-
+.task button.deleteBtn:hover {
+  color: #ff4444;
+}
   
   .task-item button:hover {
     background: rgba(255, 69, 58, 0.85);
