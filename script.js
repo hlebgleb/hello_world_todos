@@ -1,3 +1,12 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("taskInput");
+
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      addTask();
+    }
+  });
+
 const input = document.getElementById('taskInput');
 const addButton = document.getElementById('addTaskBtn');
 const taskList = document.getElementById('taskList');
@@ -56,3 +65,4 @@ input.addEventListener('keydown', (e) => {
     addTask();
   }
 });
+  });
