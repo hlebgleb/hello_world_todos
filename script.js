@@ -11,30 +11,38 @@ function addTask() {
   const taskText = input.value.trim();
   if (taskText === '') return;
 
-  tasks.push(taskText);
+  const task = {
+    id: Date.now(), // уникальный идентификатор
+    text: taskText
+  };
+
+  tasks.push(task);
   saveTasks();
-  renderTask(taskText);
+  renderTask(task);
   input.value = '';
 }
 
 // Отображение задачи в DOM
-function renderTask(taskText) {
+function renderTask(task) {
   const li = document.createElement('li');
   li.className = 'task';
+  li.dataset.id = task.id;
+
   li.innerHTML = `
-    <span>${taskText}</span>
+    <span>${task.text}</span>
     <button class="deleteBtn">Удалить</button>
   `;
-  taskList.appendChild(li);
 
   li.querySelector('.deleteBtn').addEventListener('click', () => {
-    tasks = tasks.filter(t => t !== taskText);
+    tasks = tasks.filter(t => t.id !== task.id); // удаляем по id
     saveTasks();
     li.remove();
   });
+
+  taskList.appendChild(li);
 }
 
-// Сохраняем задачи в localStorage
+// Сохраняем в localStorage
 function saveTasks() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
