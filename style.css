@@ -160,9 +160,14 @@ body {
   animation: pulse 0.6s ease-in-out;
 }
 
-.heart-toggle.active::before {
-  content: "❤️";
-  color: #ff2d55;
+.heart-toggle::before {
+  content: "♡";
+  font-size: 20px;
+  line-height: 1;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes pulse {
