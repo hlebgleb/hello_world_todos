@@ -9,36 +9,51 @@ tasks.forEach(task => renderTask(task));
 // Добавление задачи
 function addTask() {
   const taskText = input.value.trim();
-  if (taskText === '') return;
+  if (taskText === "") return;
 
   const task = {
-    id: Date.now(), // уникальный идентификатор
-    text: taskText
+    id: Date.now(),
+    text: taskText,
+    done: false
   };
 
   tasks.push(task);
   saveTasks();
   renderTask(task);
-  input.value = '';
+  input.value = "";
 }
 
 // Отображение задачи в DOM
 function renderTask(task) {
-  const li = document.createElement('li');
-  li.className = 'task';
+  const li = document.createElement("li");
+  li.className = "task";
   li.dataset.id = task.id;
 
-  li.innerHTML = `
-    <span>${task.text}</span>
-    <button class="deleteBtn">Удалить</button>
-  `;
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = task.done;
+  checkbox.addEventListener("change", () => {
+    task.done = checkbox.checked;
+    saveTasks();
+    textSpan.classList.toggle("done", task.done);
+  });
 
-  li.querySelector('.deleteBtn').addEventListener('click', () => {
-    tasks = tasks.filter(t => t.id !== task.id); // удаляем по id
+  const textSpan = document.createElement("span");
+  textSpan.textContent = task.text;
+  if (task.done) textSpan.classList.add("done");
+
+  const removeBtn = document.createElement("button");
+  removeBtn.className = "deleteBtn";
+  removeBtn.textContent = "Удалить";
+  removeBtn.addEventListener("click", () => {
+    tasks = tasks.filter(t => t.id !== task.id);
     saveTasks();
     li.remove();
   });
 
+  li.appendChild(checkbox);
+  li.appendChild(textSpan);
+  li.appendChild(removeBtn);
   taskList.appendChild(li);
 }
 
